@@ -1,0 +1,25 @@
+pipeline {
+    agent any 
+    stages {
+        stage('clone repo and clean') { 
+            steps {
+                // 
+                sh "rm -rf dummy-maven"
+                sh "git clone https://github.com/un4ckn0wl3z/dummy-maven.git"
+                sh "mvn clean -f dummy-maven"
+            }
+        }
+        stage('Test') { 
+            steps {
+                // 
+                 sh "mvn test -f dummy-maven"
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                // 
+                sh "mvn package -f dummy-maven"
+            }
+        }
+    }
+}
